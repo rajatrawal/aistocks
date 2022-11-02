@@ -14,7 +14,6 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-SECRET_KEY = 'django-insecure-5z!2ttvz%r@dux7zf^73_t6o3pp@wzo^vjg@c5*k*j=)yt%x06'
 
 
 # Quick-start development settings - unsuitable for production
@@ -22,16 +21,16 @@ SECRET_KEY = 'django-insecure-5z!2ttvz%r@dux7zf^73_t6o3pp@wzo^vjg@c5*k*j=)yt%x06
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-# SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = True
+DEBUG = False
 
 #CSRF SETTINGS
-CSRF_TRUSTED_ORIGINS = ['https://aistocks.up.railway.app','http://127.0.0.1:8000','https://aistocks-rajatrawal.koyeb.app','https://p01--aistocks--2j9gglbgkrfp.code.run']
+CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000','https://p01--aistocks--2j9gglbgkrfp.code.run']
 
-ALLOWED_HOSTS = ['aistocks.up.railway.app','127.0.0.1','aistocks-rajatrawal.koyeb.app','p01--aistocks--2j9gglbgkrfp.code.run']
+ALLOWED_HOSTS = ['127.0.0.1','p01--aistocks--2j9gglbgkrfp.code.run']
 
 # Application definition
 
@@ -47,7 +46,7 @@ INSTALLED_APPS = [
     'django_celery_results',
     'django_celery_beat',
     'account',
-    # 'channels',
+
     
 ]
 
@@ -92,8 +91,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'railway',
         'USER': 'postgres',
-        # 'PASSWORD': os.environ['PASSWORD'],
-        'PASSWORD': 'JwfFqxNM13G7DO4bTOCl',
+        'PASSWORD': os.environ['PASSWORD'],
         'HOST': 'containers-us-west-23.railway.app',
         'PORT': '7859',
     }
@@ -150,8 +148,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-# CELERY_BROKER_URL = os.environ['CELERY_BROKER_URL']
-CELERY_BROKER_URL = 'redis://default:CvLwghv7E8u28W6CrOd8@containers-us-west-109.railway.app:7336'
+CELERY_BROKER_URL = os.environ['CELERY_BROKER_URL']
 CELERY_ACCEPT_CONTENT   = ['application/json']
 CELERY_RESULT_SERIALIZER  = 'json'
 CELERY_TASK_SELERLIZER  = 'json'
@@ -170,8 +167,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_HOST_USER ='net.aistocks@gmail.com'
-# EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
-EMAIL_HOST_PASSWORD = 'lrehhzmauahnsjud'
+EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
 DEFAULT_FROM_EMAIL = 'AIStocks.in'
 
 
