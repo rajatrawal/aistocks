@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-5z!2ttvz%r@dux7zf^73_t6o3pp@wzo^vjg@c5*k*j=)yt%x06
 DEBUG = True
 
 #CSRF SETTINGS
-CSRF_TRUSTED_ORIGINS = ['https://aistocks.up.railway.app','http://127.0.0.1:8000','https://aistocks-rajatrawal.koyeb.app','https://p01--aistocks--2j9gglbgkrfp.code.run/']
+CSRF_TRUSTED_ORIGINS = ['https://aistocks.up.railway.app','http://127.0.0.1:8000','https://aistocks-rajatrawal.koyeb.app','https://p01--aistocks--2j9gglbgkrfp.code.run']
 
 ALLOWED_HOSTS = ['aistocks.up.railway.app','127.0.0.1','aistocks-rajatrawal.koyeb.app','p01--aistocks--2j9gglbgkrfp.code.run']
 
