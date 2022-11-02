@@ -1,0 +1,98 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block body %}
+
+<div class="jumbotron_div  bg-light rounded-3 ">
+    <div class="row">
+        <div class="container-fluid py-5 col-md-8">
+
+            <h1 class="display-5 fw-bold">Get Signals For <span class='primary'>Free</span></h1>
+            <p class="col-md-8 fs-4">Get Forex,Indices High Accurate Signals For Free</p>
+        </div>
+        <div class="col-md-4 d-flex align-item-center justify-content-center signal_page_svg_div">
+            <img src="{% static 'icon/signal_page.svg' %}">
+        </div>
+    </div>
+
+</div>
+
+<div class="">
+    <div class="alert alert-info text-center" role="alert">
+        <strong >This all are computer genrated signals and only for educational porpose.</strong>
+    </div>
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Don't rush for signals !</strong> Because mostly signal will show opposite trend , so trade signal only on support and resistance. And do your own analysis.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+
+</div>
+<div class="">
+
+    <div class="signals_div  mb-4">
+        <div class="row">
+
+            {% for signal in signals %}
+            <div class="col-md-6 p-1">
+                <div class="card  mb-3" style="max-width: 100%;">
+                    <div class=" g-0">
+
+                        <div class="card-body">
+                            <div >
+                                <h3 class="card-title fw-bold 8"><span
+                                        class='{{signal.color}}'>{{signal.position|title}}</span><span class="primary">
+                                            <a href="getStock/{{signal.symbol.symbol}}" class='symbol_name_a '>{{signal.symbol.title}}</a>
+                                        </span> @{{signal.price}}
+                                </h3>
+                                <div class='text-muted '>
+                                    {{signal.time|timesince}} ago.
+                                </div>
+                            </div>
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td>Signal Type</td>
+                                        <th scope="row" class='{{signal.color}}'>{{signal.position|title}}</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Time (IST)</td>
+                                        <th scope="row"> {{signal.time|date:"SHORT_DATETIME_FORMAT" }} </th>
+                                    </tr>
+                                    <tr>
+                                        <td>Price</td>
+                                        <th scope="row"> {{signal.price}} </th>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Current Profit/Loss</td>
+                                        {% if signal.current_profit < 0 %} <th scope="row" class="red">
+                                            {{signal.current_profit}} Pips</th>
+                                            {% else %}
+                                            <th scope="row" class="green"> {{signal.current_profit}} Pips</th>
+                                            {% endif %}
+                                    </tr>
+                                    <tr>
+                                        <td>Max Profit</td>
+                                        <th scope="row" class="green">{{signal.max_profit}} Pips</th>
+                                    </tr>
+                                    <tr>
+                                        <td> Status</td>
+                                        <th scope="row"> {{signal.status|title}} </th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            {% if forloop.counter|divisibleby:2 %}
+        </div>
+        <div class="row">
+            {% endif %}
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+
+{% endblock body %}

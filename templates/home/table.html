@@ -1,0 +1,35 @@
+{% extends 'home/base.html' %}
+{% block body %}
+<div class="table_overflow_scroll">
+    <h2 class="mt-4 ms-2 mb-4 fw-bold">{{name|title}}</h2>
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            {% for i  in columns %}
+            <th scope="col">{{i}}</th>
+            {% endfor %}
+
+          </tr>
+        </thead>
+        <tbody>
+            {% for no,dict in data.items %}
+            <tr>
+                {% for key,value in dict.items %}
+                
+                {% if key == 'Symbol' %}
+                <td>
+                  <a href="/getStock/{{value}}" class='primary_link'>{{value}}</a>
+                </td>
+                {% elif key == 'color' %}
+                {% elif key == 'Change' or key == '%' or key == 'Volume' %}
+                <td class='{{dict.color}}'>{{value|slice:'0:20'}}</td>    
+                {% else %}
+                <td >{{value|slice:'0:20'}}</td>    
+                {% endif %}
+                {% endfor %}
+            </tr>
+            {% endfor %}    
+        </tbody>
+      </table>
+</div>
+{% endblock body %}

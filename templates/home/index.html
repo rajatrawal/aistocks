@@ -1,0 +1,113 @@
+{% extends 'home/base.html' %}
+{% block title %}
+{% load my_tags %}
+{% load static %}
+AIStock.com
+{% endblock title %}
+{% block dece %}
+Get prediction tomorrow price of stocks for free.
+{% endblock dece %}
+{% block body %}
+<marquee class='marquee_tag'>
+    {% for stock in marquee_data %}
+
+    <span class='me-4  '>
+        <span class='fw-bold me-1 marquee_tag_symbol'><a href='/getStock/{{stock|get:"Symbol"}}' class='symbol_name_a'>{{stock|get:"Symbol"}}</a> </span>
+        <span class='fw-bold  me-1'>{{stock|get:"Price (Intraday)"}}</span>
+        <span class=' {{stock|get:"color"}} '>{{stock|get:"% Change"}}%</span>
+        <span class=' symbol_sign'>
+            {% if stock|get:"color" == 'green' %}
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green"
+                class="bi bi-caret-up-square-fill" viewBox="0 0 16 16">
+                <path
+                    d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4 9h8a.5.5 0 0 0 .374-.832l-4-4.5a.5.5 0 0 0-.748 0l-4 4.5A.5.5 0 0 0 4 11z" />
+            </svg>
+            {% else %}
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red"
+                class="bi bi-caret-down-square-fill" viewBox="0 0 16 16">
+                <path
+                    d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4 4a.5.5 0 0 0-.374.832l4 4.5a.5.5 0 0 0 .748 0l4-4.5A.5.5 0 0 0 12 6H4z" />
+            </svg>
+            {% endif %}
+        </span>
+    </span>
+
+    {% endfor %}
+</marquee>
+<div class="mb-4">
+    <div class="mt-4 mb-4 h3 ms-3 fw-bold">Todays Highlight</div>
+    <div class="row mt-4  ms-2 me-2">
+        {% for j,i in index.items %}
+
+        <div class="col-md-3">
+            <div class=" index_div p-1">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title cardTitlePrice fw-bold"><a href="/getStock/{{i.symbol}}" class="symbol_name_a">{{i.shortName}}</a></h5>
+                        <div class="h3  {{i.color}} fw-bold mt-2 mb-2">{{i.regularMarketPrice}} <span
+                                class="cardPriceChangeSpan h6 ms-1 fw-bold {{i.color}}">{{i.regularMarketChange}}</span>
+                            <span
+                                class="cardPricePercentSpan fw-bold h6 ms-1 {{i.color}}">{{i.regularMarketChangePercent}}%</span>
+                        </div>
+                        <div>
+                            <div class="fw-bold"><span class="text-muted ">Todays High:
+                                </span><span>{{i.regularMarketDayHigh}}</span></div>
+                            <div class="fw-bold"><span class="text-muted ">Todays Low:
+                                </span><span>{{i.regularMarketDayLow}}</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if forloop.counter == 4 %}
+    </div>
+    <div class="row mt-1  ms-2 me-2">
+
+
+        {% endif %}
+
+        {% endfor %}
+    </div>
+
+</div>
+<div class="mb-4">
+    {% for name,stocks in day_stocks.items %}
+    <div class="mt-4 mb-4  ms-3 d-flex justify-content-between">
+        <div class='h3 fw-bold'>
+            {{name|title}}
+        </div>
+        <div>
+            <a href="table/{{name}}" class='me-2'>See More</a>
+        </div>
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Symbol</th>
+                <th scope="col">Price</th>
+                <th scope="col">Change</th>
+                <th scope="col">Change %</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for value,stock in stocks.items %}
+            {% if forloop.counter < 11 %} <tr>
+                <td><a href='/getStock/{{stock|get:"Symbol"}}' class='primary_link'>{{stock|get:"Symbol"}}</a> </td>
+                <td>{{stock|get:"Price (Intraday)"}}</td>
+                <td class="{{stock|get:'color'}}">{{stock|get:"Change"}}</td>
+                <td class="{{stock|get:'color'}}">{{stock|get:"% Change"}} %</td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+        </tbody>
+    </table>
+    {% endfor %}
+</div>
+{% endblock body %}
+{% block script %}
+<script src="{% static 'home/ajax.js' %}"></script>
+
+<script>
+
+</script>
+{% endblock script %}

@@ -1,0 +1,139 @@
+{% extends 'home/base.html' %}
+{% block title %}
+{{more_data.shortName}}
+{% endblock title %}
+{% block dece %}
+Get prediction tomorrow price of {{more_data.shortName}} for free.
+{% endblock dece %}
+{% block body %}
+{% load static %}
+<!-- TradingView Widget BEGIN -->
+<div class="row ">
+
+  <div class="tradingview-widget-container col-md-5">
+    <div id="tradingview_0ebba"></div>
+    <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/BSE-TATAMOTORS/"
+        rel="noopener" target="_blank"></a> </div>
+      <div>
+
+        <a href="/chart/{{more_data.symbolName}}" class='text-center'>Click here to get full  chart.</a>
+      </div>
+  </div>
+  <div class="stock-info col-md-7 p-2">
+    <div class="top_info d-flex flex-row justify-content-between align-items-center">
+      <div>
+        <h4 class="stock_name mt-2 fw-bold"> {{more_data.shortName}}<span class="stock_symbol_name text-muted ">
+            {{more_data.symbol}}</span></h4>
+      </div>
+      <div class="top_info_right ">
+        {{more_data.quoteType}}
+      </div>
+    </div>
+    <div class="priceDiv d-flex flex-row align-items-end">
+      <h1 class='primary fw-bold'>{{more_data.currency|safe}} {{more_data.regularMarketPrice}} </h1>
+      <h6 class='{{more_data.color}} changePrice'> {{more_data.currency|safe}} {{more_data.regularMarketChange}}
+        ({{more_data.regularMarketChangePercent}}%)</h6>
+    </div>
+    <div class="row price_detail mt-3 ">
+      <h4 class="price_detail-title">Price Details</h4>
+      <div class="price_detail_div row mt-2">
+        <div class="col-3 d-flex flex-column justify-content-start align-items-center price_detail_inner_div">
+          <div class="price_detail_div_head text-center">Today High</div>
+          <div class="price_detail_div_price text-center">{{more_data.todayHigh}}</div>
+        </div>
+
+        <div class="col-3 d-flex flex-column justify-content-center align-items-center price_detail_inner_div">
+          <div class="price_detail_div_head text-center">Today Low</div>
+          <div class="price_detail_div_price text-center">{{more_data.todayLow}}</div>
+        </div>
+
+        <div class="col-3 d-flex flex-column justify-content-center align-items-center price_detail_inner_div">
+          <div class="price_detail_div_head text-center">52W High</div>
+          <div class="price_detail_div_price text-center">{{more_data.fiftyTwoWeekHigh}}</div>
+
+        </div>
+        <div class="col-3 d-flex flex-column justify-content-end align-items-center price_detail_inner_div">
+
+          <div class="price_detail_div_head text-center">52W Low</div>
+          <div class="price_detail_div_price text-center">{{more_data.fiftyTwoWeekLow}}</div>
+        </div>
+      </div>
+
+    </div>
+    <div class=" mt-4">
+      <h4 class="price_detail-title">Other Details</h4>
+        <table class="table table-striped">
+            <tbody>
+                <tr>
+                    <td>Exchange Timezone</td>
+                    <th scope='row'>{{more_data.exchangeTimezoneName}}</th>
+                </tr>
+                <tr>
+                    <td>Fifty Day Average</td>
+                    <th scope='row'>{{more_data.fiftyDayAverage}}</th>
+                </tr>
+                <tr>
+                    <td>Two Hundred Day Average</td>
+                    <th scope='row'>{{more_data.twoHundredDayAverage}}</th>
+                </tr>
+                <tr>
+                    <td>Fifty Two Week Low Change</td>
+                    <th scope='row' class='{{more_data.52WLcolor}}'>{{more_data.fiftyTwoWeekLowChange}}  {{more_data.fiftyTwoWeekLowChangePercent}}%</th>
+                </tr>
+                
+                <tr>
+                    <td>Fifty Two Week High Change</td>
+                    <th scope='row' class='{{more_data.52WHcolor}}'>{{more_data.fiftyTwoWeekHighChange}}  {{more_data.fiftyTwoWeekHighChangePercent}}%</th>
+                </tr>
+                
+            </tbody>
+        </table>
+
+    </div>
+  </div>
+</div>
+<div class="mt-4">
+  <div class="predict_tomorrow p-2 fw-bold h5   placeholder-glow">
+    <span class='placeholder col-12'></span>
+  </div>
+</div>
+
+
+
+
+{% endblock body %}
+
+{% block script %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+<script src="{% static 'home/ajax.js' %}"></script>
+
+<script>
+  const stockName = '{{more_data.shortName}}';
+  const symbolName = '{{more_data.symbolName}}';
+  const symbolNameNs = '{{more_data.symbolNameNs}}';
+  const tradingViewExchangeName = '{{more_data.tradingViewExchangeName}}';
+  const  tradingViewSymbolName= '{{more_data.tradingViewSymbolName}}';
+  let stockPrice = '{{ more_data.regularMarketPrice }}';
+  const stockSymbol = '{{more_data.currency}}';
+
+
+
+
+
+  ajaxRequest("/predictTomorrow", symbolNameNs, showTomorrowPredicton);
+
+
+  
+  
+
+
+
+
+</script>
+
+<script src="{% static 'home/tradingChart.js' %}"></script>
+<script>
+
+</script>
+{% endblock script %}

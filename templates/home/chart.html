@@ -1,0 +1,41 @@
+{% extends 'home/base.html' %}
+{% block style %}
+<style>
+    #tradingview_64269{
+        height:35rem !important;
+    }
+</style>
+{% endblock style %}
+{% block body %}
+
+<!-- TradingView Widget BEGIN -->
+
+
+    <div class="tradingview-widget-container">
+        <div id="tradingview_64269"></div>
+
+        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+        <script type="text/javascript">
+        new TradingView.widget(
+        {
+        "autosize": true,
+        "symbol": "{{exchange}}:{{symbol}}",
+        "interval": "D",
+        "timezone": "Etc/UTC",
+        "theme": "light",
+        "style": "1",
+        "locale": "en",
+        "toolbar_bg": "#f1f3f6",
+        "enable_publishing": false,
+        "withdateranges": true,
+        "hide_side_toolbar": false,
+        "allow_symbol_change": true,
+        "container_id": "tradingview_64269"
+      }
+        );
+        
+        </script>
+      </div>
+
+  <!-- TradingView Widget END -->
+{% endblock body %}

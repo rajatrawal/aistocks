@@ -1,0 +1,601 @@
+{% extends 'home/base.html' %}
+{% block title %}
+{{more_data.shortName}}
+{% endblock title %}
+{% block dece %}
+Get prediction tomorrow price of {{more_data.shortName}} for free.
+{% endblock dece %}
+{% block body %}
+{% load static %}
+<!-- TradingView Widget BEGIN -->
+<div class="row ">
+  <div class="tradingview-widget-container col-md-5">
+    <div id="tradingview_0ebba"></div>
+    <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/BSE-TATAMOTORS/"
+        rel="noopener" target="_blank"></a> </div>
+      <div>
+
+        <a href="/chart/{{more_data.symbolName}}" class='text-center'>Click here to get full chart.</a>
+      </div>
+  </div>
+
+  <div class="stock-info col-md-7 p-2">
+    <div class="top_info d-flex flex-row justify-content-between align-items-center">
+      <div>
+        <h4 class="stock_name mt-2 fw-bold"> {{more_data.shortName}}<span class="stock_symbol_name text-muted ">
+            {{more_data.symbol}}</span></h4>
+      </div>
+      <div class="top_info_right ">
+
+      </div>
+    </div>
+    <div class="priceDiv d-flex flex-row align-items-end">
+      <h1 class='primary fw-bold'>{{more_data.currency}} {{more_data.regularMarketPrice}} </h1>
+      <h6 class='{{more_data.color}} changePrice'> {{more_data.currency}} {{more_data.regularMarketChange}}
+        ({{more_data.regularMarketChangePercent}}%)</h6>
+    </div>
+    <div class="row price_detail mt-3 ">
+      <h4 class="price_detail-title">Price Details</h4>
+      <div class="price_detail_div row mt-2">
+        <div class="col-3 d-flex flex-column justify-content-start align-items-center price_detail_inner_div">
+          <div class="price_detail_div_head text-center">Today High</div>
+          <div class="price_detail_div_price text-center">{{more_data.todayHigh}}</div>
+        </div>
+
+        <div class="col-3 d-flex flex-column justify-content-center align-items-center price_detail_inner_div">
+          <div class="price_detail_div_head text-center">Today Low</div>
+          <div class="price_detail_div_price text-center">{{more_data.todayLow}}</div>
+        </div>
+
+        <div class="col-3 d-flex flex-column justify-content-center align-items-center price_detail_inner_div">
+          <div class="price_detail_div_head text-center">52W High</div>
+          <div class="price_detail_div_price text-center">{{basic_data.52WH}}</div>
+
+        </div>
+        <div class="col-3 d-flex flex-column justify-content-end align-items-center price_detail_inner_div">
+
+          <div class="price_detail_div_head text-center">52W Low</div>
+          <div class="price_detail_div_price text-center">{{basic_data.52WL}}</div>
+        </div>
+      </div>
+
+    </div>
+    <div class="row company_details ">
+      <h4 class=" mt-4">Company Details</h4>
+      <div class="row mt-3">
+
+        <div class="col-4 d-flex flex-column justify-content-center align-items-center ">
+          <div class="price_detail_div_head text-center">Market Capital</div>
+          <div class="price_detail_div_price text-center">{{basic_data.MarketCap}}</div>
+        </div>
+        <div class="col-4 d-flex flex-column justify-content-center align-items-center ">
+          <div class="price_detail_div_head text-center">No Of Shares</div>
+          <div class="price_detail_div_price text-center">{{basic_data.shares}}</div>
+        </div>
+        <div class="col-4 d-flex flex-column justify-content-center align-items-center ">
+          <div class="price_detail_div_head text-center">O/S Shares</div>
+          <div class="price_detail_div_price text-center">{{more_data.sharesOutstanding}}</div>
+        </div>
+
+      </div>
+      <div class="row mt-3">
+        <div class="col-4 d-flex flex-column justify-content-center align-items-center ">
+          <div class="price_detail_div_head text-center">Beta</div>
+          <div class="price_detail_div_price text-center">{{basic_data.Beta5YMonthly}}</div>
+        </div>
+        <div class="col-4 d-flex flex-column justify-content-center align-items-center ">
+          <div class="price_detail_div_head text-center">EPS</div>
+          <div class="price_detail_div_price text-center">{{basic_data.EPSTTM}}</div>
+        </div>
+        <div class="col-4 d-flex flex-column justify-content-center align-items-center ">
+          <div class="price_detail_div_head text-center">P/E Ratio</div>
+          <div class="price_detail_div_price text-center">{{basic_data.PERatioTTM}}</div>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-4 d-flex flex-column justify-content-center align-items-center ">
+          <div class="price_detail_div_head text-center">Today's Volume</div>
+          <div class="price_detail_div_price text-center">{{basic_data.Volume}}</div>
+        </div>
+        <div class="col-4 d-flex flex-column justify-content-center align-items-center ">
+          <div class="price_detail_div_head text-center">Average Volume</div>
+          <div class="price_detail_div_price text-center">{{basic_data.AvgVolume}}</div>
+        </div>
+        <div class="col-4 d-flex flex-column justify-content-center align-items-center ">
+          <div class="price_detail_div_head text-center">Book Value </div>
+          <div class="price_detail_div_price text-center">{{more_data.bookValue}}</div>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-4 d-flex flex-column justify-content-center align-items-center ">
+          <div class="price_detail_div_head text-center">50Day's MA</div>
+          <div class="price_detail_div_price text-center">{{more_data.fiftyDayAverage}}</div>
+        </div>
+        <div class="col-4 d-flex flex-column justify-content-center align-items-center ">
+          <div class="price_detail_div_head text-center">200Day's MA</div>
+          <div class="price_detail_div_price text-center">{{more_data.twoHundredDayAverage}}</div>
+        </div>
+        <div class="col-4 d-flex flex-column justify-content-center align-items-center ">
+          <div class="price_detail_div_head text-center">P/B Ratio</div>
+          <div class="price_detail_div_price text-center">{{more_data.priceToBook}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mt-4">
+  <div class="predict_tomorrow p-2 fw-bold h5   placeholder-glow">
+    <span class='placeholder col-12'></span>
+  </div>
+</div>
+<div class="p-2">
+  <div class="mt-4 mb-4"></div>
+  <ul class="nav nav-pills mt-3 mb-3  nav-fill" id="pills-tab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="pills-summary-tab" data-bs-toggle="pill" data-bs-target="#pills-summary"
+        type="button" role="tab" aria-controls="pills-summary" aria-selected="false">Summary</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="pills-financials-tab" data-bs-toggle="pill" data-bs-target="#pills-financials"
+        type="button" role="tab" aria-controls="pills-financials" aria-selected="false">Financials</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link " id="pills-forecast-tab" data-bs-toggle="pill" data-bs-target="#pills-forecast"
+        type="button" role="tab" aria-controls="pills-forecast" aria-selected="true">Forecast</button>
+    </li>
+
+
+  </ul>
+  <div class="tab-content" id="pills-tabContent">
+    <div class="tab-pane fade " id="pills-forecast" role="tabpanel" aria-labelledby="pills-forecast-tab" tabindex="0">
+      <h4>The Long Term Forecast Will Come Soon.</h4>
+    </div>
+    <div class="tab-pane fade" id="pills-financials" role="tabpanel" aria-labelledby="pills-financials-tab"
+      tabindex="0">
+      <div class="row mt-4">
+        <div class="col-md-6 mt-4">
+          <h4 class="">Total Revenue</h4>
+          <div>
+            <ul class="nav nav-pills mb-3 mt-4" id="pills-tab" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active r_100" id="pills-revenue-anually-tab" data-bs-toggle="pill"
+                  data-bs-target="#pills-revenue-anually" type="button" role="tab" aria-controls="pills-revenue-anually"
+                  aria-selected="true">Anually</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link r_100" id="pills-revenue-quarterly-tab" data-bs-toggle="pill"
+                  data-bs-target="#pills-revenue-quarterly" type="button" role="tab"
+                  aria-controls="pills-revenue-quarterly" aria-selected="false">Quarterly</button>
+              </li>
+            </ul>
+            <div class="tab-content" id="pills-tabContent">
+              <div class="tab-pane fade show active " id="pills-revenue-anually" role="tabpanel"
+                aria-labelledby="pills-revenue-anually-tab" tabindex="0">
+                <canvas id="revenueAnualChart"></canvas>
+              </div>
+              <div class="tab-pane fade" id="pills-revenue-quarterly" role="tabpanel"
+                aria-labelledby="pills-revenue-quarterly-tab" tabindex="0">
+                <canvas id="quarterlyAnualChart"></canvas>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+        <div class="col-md-6 mt-4">
+          <h4>Net Profit</h4>
+          <ul class="nav nav-pills mb-3 mt-4" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active r_100" id="pills-profit-anual-tab" data-bs-toggle="pill"
+                data-bs-target="#pills-profit-anual" type="button" role="tab" aria-controls="pills-profit-anual"
+                aria-selected="true">Anually</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link r_100" id="pills-profit-quarterly-tab" data-bs-toggle="pill"
+                data-bs-target="#pills-profit-quarterly" type="button" role="tab" aria-controls="pills-profit-quarterly"
+                aria-selected="false">Quarterly</button>
+            </li>
+          </ul>
+          <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-profit-anual" role="tabpanel"
+              aria-labelledby="pills-profit-anual-tab" tabindex="0">
+              <canvas id="profitAnualChart"></canvas>
+            </div>
+            <div class="tab-pane fade" id="pills-profit-quarterly" role="tabpanel"
+              aria-labelledby="pills-profit-quarterly-tab" tabindex="0">
+              <canvas id="profitQuarterlyChart"></canvas>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <h4 class="mt-4 mb-4">Asset / Liabilities</h4>
+          <div>
+            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active  r_100" id="pills-asset-anually-tab" data-bs-toggle="pill"
+                  data-bs-target="#pills-asset-anually" type="button" role="tab" aria-controls="pills-asset-anually"
+                  aria-selected="true">Asset</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link r_100" id="pills-liab-anually-tab" data-bs-toggle="pill"
+                  data-bs-target="#pills-liab-anually" type="button" role="tab" aria-controls="pills-liab-anually"
+                  aria-selected="false">Liabilities</button>
+              </li>
+
+            </ul>
+            <div class="tab-content" id="pills-tabContent">
+              <div class="tab-pane fade show active" id="pills-asset-anually" role="tabpanel"
+                aria-labelledby="pills-asset-anually-tab" tabindex="0">
+                <canvas id="anualAssetChart"></canvas>
+              </div>
+              <div class="tab-pane fade" id="pills-liab-anually" role="tabpanel"
+                aria-labelledby="pills-liab-anually-tab" tabindex="0">
+                <canvas id="anualLiabChart"></canvas>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="col-md-6">
+          <h4 class="mt-4 mb-4">Cash / Goodwill</h4>
+          <div>
+            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active  r_100" id="pills-cash-anually-tab" data-bs-toggle="pill"
+                  data-bs-target="#pills-cash-anually" type="button" role="tab" aria-controls="pills-cash-anually"
+                  aria-selected="true">Cash</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link r_100" id="pills-goodwill-anually-tab" data-bs-toggle="pill"
+                  data-bs-target="#pills-goodwill-anually" type="button" role="tab"
+                  aria-controls="pills-goodwill-anually" aria-selected="false">Goodwill</button>
+              </li>
+
+            </ul>
+            <div class="tab-content" id="pills-tabContent">
+              <div class="tab-pane fade show active" id="pills-cash-anually" role="tabpanel"
+                aria-labelledby="pills-cash-anually-tab" tabindex="0">
+                <canvas id="anualCashChart"></canvas>
+              </div>
+              <div class="tab-pane fade" id="pills-goodwill-anually" role="tabpanel"
+                aria-labelledby="pills-goodwill-anually-tab" tabindex="0">
+                <canvas id="anualGoodwillChart"></canvas>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="col-md-6"></div>
+      </div>
+      <div>
+        <h4 class="mt-4 mb-4">Financial Data</h4>
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active  r_100" id="pills-anual-data-tab" data-bs-toggle="pill"
+              data-bs-target="#pills-anual-data" type="button" role="tab" aria-controls="pills-anual-data"
+              aria-selected="true">Anually</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link r_100" id="pills-quarterly-data-tab" data-bs-toggle="pill"
+              data-bs-target="#pills-quarterly-data" type="button" role="tab" aria-controls="pills-quarterly-data"
+              aria-selected="false">Quarterly</button>
+          </li>
+        </ul>
+      </div>
+      <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active " id="pills-anual-data" role="tabpanel"
+          aria-labelledby="pills-anual-data-tab" tabindex="0">
+          <div>
+            <h4 class="mt-4 mb-4">Income Statement</h4>
+            <div id="anuallyIncomeStatement" class="overflow-auto">
+
+            </div>
+          </div>
+          <div>
+            <h4 class="mt-4 mb-4">Balance Sheet</h4>
+            <div id="anuallyBalanceSheet" class="overflow-auto">
+
+            </div>
+          </div>
+          <div>
+            <h4 class="mt-4 mb-4">Cash Flow</h4>
+            <div id="anuallyCashFlow" class="overflow-auto">
+
+            </div>
+          </div>
+
+
+        </div>
+        <div class="tab-pane fade" id="pills-quarterly-data" role="tabpanel" aria-labelledby="pills-quarterly-data-tab"
+          tabindex="0">
+          <div>
+            <h4 class="mt-4 mb-4">Income Statement</h4>
+            <div id="quarterlyIncomeStatement" class="overflow-auto">
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+    <div class="tab-pane fade show active" id="pills-summary" role="tabpanel" aria-labelledby="pills-summary-tab"
+      tabindex="0">
+      <div class="mt-4">
+        {% if summary.beta_value %}
+        <div class="">
+          <div class="box_shadow p-2 row">
+            <div class="col-2 beta_logo center {{summary.beta_value.color}}">
+              &beta;
+            </div>
+            <div class="col-10 beta_text">
+              <span class="beta_text_head d-block"><span class='fw-bold'>{{summary.beta_value.risk}}</span> Risky Stock
+              </span>
+              <span class="beta_text_text ">Stock is {{summary.beta_value.risk}} volatile. Beta is
+                almost <span class="beta_text_value {{summary.beta_value.color}}">{{summary.Beta5YMonthly}}</span>
+              </span>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+        <div class=" p-2 row">
+          <div class="col-sm-4">
+            <div class="box_shadow p-3 ">
+              <div class="beta_text_head ">Yearly Change</div>
+              <div class="">
+                <div>
+                  <div class="yearly_inner_div"><span>Yearly Return Is </span> <span
+                      class='fw-bold'>{{summary.52WeekChange3}}</span></div>
+                  <div class="yearly_inner_div"><span> Yearly High Is</span> <span
+                      class='fw-bold'>{{summary.52WeekHigh3}}</span></div>
+                  <div class="yearly_inner_div"><span> Yearly Low Is</span> <span
+                      class='fw-bold'>{{summary.52WeekLow3}}</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-8">
+
+            <div class="box_shadow p-3  row">
+              <div class="col-md-4 text-center beta_text_head center">
+                Averaging
+              </div>
+              <div class="col-md-8 " style="padding-top: .8rem;">
+                <div>
+                  <div class="averaging_inner_div"> <span>50 Day Moving Average</span> <span
+                      class='fw-bold'>{{summary.50DayMovingAverage3}}</span></div>
+                  <div class="averaging_inner_div"><span>200 Day Average </span> <span
+                      class='fw-bold'>{{summary.200DayMovingAverage3}}</span> </div>
+                  <div class="averaging_inner_div"><span>10 Day Average Volume</span> <span
+                      class='fw-bold'>{{summary.AvgVol10day3}}</span></div>
+                  <div class="averaging_inner_div"><span>3 Month Average Volume</span><span
+                      class='fw-bold'>{{summary.AvgVol3month3}}</span> </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="p-2 row">
+          <div class="col-sm-4">
+
+            <div class="box_shadow  p-3">
+              <div class="beta_text_head ">
+                Dividend
+              </div>
+              <div>
+                <div class="averaging_inner_div"><span>Forward Annual Dividend Rate</span><span
+                    class='fw-bold'>{{summary.ForwardAnnualDividendRate4}}</span></div>
+                <div class="averaging_inner_div"><span>Forward Annual Dividend Yield</span><span
+                    class='fw-bold'>{{summary.ForwardAnnualDividendYield4}}</span></div>
+                <div class="averaging_inner_div"><span>Trailing Annual Dividend Rate</span><span
+                    class='fw-bold'>{{summary.TrailingAnnualDividendRate3}}</span></div>
+                <div class="averaging_inner_div"><span>Trailing Annual Dividend Yield</span><span
+                    class='fw-bold'>{{summary.TrailingAnnualDividendYield3}}</span></div>
+                <div class="averaging_inner_div"><span> Payout Ratio</span><span
+                    class='fw-bold'>{{summary.PayoutRatio4}}</span></div>
+                <div class="averaging_inner_div"><span> Dividend Date</span><span
+                    class='fw-bold'>{{summary.DividendDate3}}</span></div>
+                <div class="averaging_inner_div"><span> Ex-Dividend Date</span><span
+                    class='fw-bold'>{{summary.ExDividendDate4}}</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+
+            <div class="box_shadow p-3">
+              <div class="beta_text_head ">
+                Revenue
+              </div>
+              <div>
+                <div class="averaging_inner_div"><span>Revenue</span><span class='fw-bold'>{{summary.Revenuettm}}</span>
+                </div>
+                <div class="averaging_inner_div"><span>Revenue Per Share</span><span
+                    class='fw-bold'>{{summary.RevenuePerSharettm}}</span></div>
+                <div class="averaging_inner_div"><span> Quarterly Revenue Growth</span><span
+                    class='fw-bold'>{{summary.QuarterlyRevenueGrowthyoy}}</span></div>
+                <div class="averaging_inner_div"><span> Diluted EPS</span><span
+                    class='fw-bold'>{{summary.DilutedEPSttm}}</span></div>
+                <div class="averaging_inner_div"><span> Return On Assets</span><span
+                    class='fw-bold'>{{summary.ReturnonAssetsttm}}</span></div>
+                <div class="averaging_inner_div"><span> Return On Equity</span><span
+                    class='fw-bold'>{{summary.ReturnonEquityttm}}</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="box_shadow  p-3">
+              <div class="beta_text_head ">
+                Profit
+              </div>
+              <div>
+                <div class="averaging_inner_div"><span> Gross Profit</span><span
+                    class='fw-bold'>{{summary.GrossProfitttm}}</span></div>
+                <div class="averaging_inner_div"><span>EBITDA</span><span class='fw-bold'>{{summary.EBITDA}}</span>
+                </div>
+                <div class="averaging_inner_div"><span>Net Income</span><span
+                    class='fw-bold'>{{summary.NetIncomeAvitoCommonttm}}</span></div>
+                <div class="averaging_inner_div"><span>Profit Margin</span><span
+                    class='fw-bold'>{{summary.ProfitMargin}}</span></div>
+                <div class="averaging_inner_div"><span>Operating Margin</span><span
+                    class='fw-bold'>{{summary.OperatingMarginttm}}</span></div>
+                <div class="averaging_inner_div"><span>Quarterly Earnings Growth</span><span
+                    class='fw-bold'>{{summary.QuarterlyEarningsGrowthyoy}}</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="p-2 row">
+
+          <div class="col-sm-4">
+            <div class="box_shadow  p-3">
+              <div class="beta_text_head ">
+                Cash
+              </div>
+              <div>
+                <div class="averaging_inner_div"><span>Total Cash</span><span
+                    class='fw-bold'>{{summary.TotalCashmrq}}</span></div>
+                <div class="averaging_inner_div"><span>Total Cash Per Share </span><span
+                    class='fw-bold'>{{summary.TotalCashPerSharemrq}}</span></div>
+                <div class="averaging_inner_div"><span>Total Debt</span><span
+                    class='fw-bold'>{{summary.TotalDebtmrq}}</span></div>
+                <div class="averaging_inner_div"><span>Total Debt/Equity</span><span
+                    class='fw-bold'>{{summary.TotalDebtEquitymrq}}</span></div>
+                <div class="averaging_inner_div"><span> Operating Cash Flow</span><span
+                    class='fw-bold'>{{summary.OperatingCashFlowttm}}</span></div>
+                <div class="averaging_inner_div"><span>Levered Free Cash Flow</span><span
+                    class='fw-bold'>{{summary.LeveredFreeCashFlowttm}}</span></div>
+                <div class="averaging_inner_div"><span>Current Ratio</span><span
+                    class='fw-bold'>{{summary.CurrentRatiomrq}}</span></div>
+                <div class="averaging_inner_div"> <span>Book Value Per Share</span><span
+                    class='fw-bold'>{{summary.BookValuePerSharemrq}}</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="box_shadow  p-3">
+              <div class="beta_text_head ">
+                Shareholding
+              </div>
+              <div>
+                <div class="averaging_inner_div"><span>Shares Outstanding</span><span
+                    class='fw-bold'>{{summary.SharesOutstanding5}}</span></div>
+                <div class="averaging_inner_div"><span>Float</span><span
+                    class='fw-bold'>{{summary.ShortofFloat4}}</span></div>
+                <div class="averaging_inner_div"><span>Held by Insiders</span><span
+                    class='fw-bold'>{{summary.HeldbyInsiders1}}</span></div>
+                <div class="averaging_inner_div"><span>Held by Institutions</span><span
+                    class='fw-bold'>{{summary.HeldbyInstitutions1}}</span></div>
+                <div class="averaging_inner_div"><span>Last Split Factor</span><span
+                    class='fw-bold'>{{summary.LastSplitFactor2}}</span></div>
+                <div class="averaging_inner_div"><span>Last Split Date</span><span
+                    class='fw-bold'>{{summary.LastSplitDate3}}</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mt-4 mb-4 p-2">
+  <h4 class="mt-4 mb-4">Company Info</h4>
+  <table class="table table-striped ">
+    <tbody id="companyInfoTableBody">
+
+    </tbody>
+  </table>
+</div>
+{{room_name|json_script:"room-name"}}
+{% endblock body %}
+
+{% block script %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+<script src="{% static 'home/ajax.js' %}"></script>
+
+<script>
+  const stockName = '{{more_data.shortName}}';
+  const stockSymbol = '{{more_data.currency}}';
+  const symbolName = '{{more_data.symbolName}}';
+  const symbolNameNs = '{{more_data.symbolNameNs}}';
+  const tradingViewExchangeName = '{{more_data.tradingViewExchangeName}}';
+  const  tradingViewSymbolName= '{{more_data.tradingViewSymbolName}}';
+  let stockPrice = '{{ more_data.regularMarketPrice }}';
+
+
+
+
+  ajaxRequest("/predictTomorrow", symbolNameNs, showTomorrowPredicton);
+
+  ajaxRequest("/companyInfo", symbolNameNs, showCompanyCategory);
+  
+  
+
+
+  function showCompanyCategory(data) {
+    data = JSON.parse(data);
+
+    if (data != 'false') {
+      let topInfoRight = document.getElementsByClassName('top_info_right')[0];
+      if (data['sector'] != undefined){
+
+        topInfoRight.innerText = data['sector'];
+      }
+      str1 = '';
+
+      for (j in data) {
+        key = titleWords(titleWords(j));
+        str1 += `<tr><th scope="row">${key}</th><td>${data[j]}</td></tr>`;
+      }
+      companyInfoTableBody.innerHTML = str1;
+    };
+  };
+  function showDividendTable(data){
+    data = JSON.parse(data);
+    str1='';
+    if(data != 'false'){
+      for (j in data) {
+        key = titleWords(titleWords(j));
+        str1 += `<tr><th scope="row">${key}</th><td>${data[j]}</td></tr>`;
+      };
+      dividendTableBody.innerHTML = str1;
+    }
+  };
+
+
+</script>
+
+<script src="{% static 'home/chart.js' %}"></script>
+<script src="{% static 'home/tradingChart.js' %}"></script>
+<script>
+  // const roomName = JSON.parse(document.getElementById('room-name').textContent);
+  // let symbolNamesOnPage = document.getElementsByClassName('stock_symbol_name');
+  // symbolNamesOnPageStr = '';
+  // for(symbolElement of symbolNamesOnPage){
+  //   symbolNamesOnPageStr +=    '+'+symbolElement.innerText.trim();
+  // }
+  
+  // console.log(roomName,symbolNamesOnPageStr)
+
+  // const stockScoket = new WebSocket(
+  //   'ws://'+
+  //   window.location.host+
+  //   '/ws/stock/'+
+  //   roomName+'/'+
+  //   '?'+symbolNamesOnPageStr
+  // )
+  
+  // stockScoket.onmessage=function(e){
+  //   console.log('hi');
+  //   console.log(e.data);
+  //   data = JSON.parse(e.data);
+  //   console.log(data);
+  // }
+</script>
+{% endblock script %}
