@@ -22,10 +22,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 
 SECRET_KEY = os.environ['SECRET_KEY']
+# SECRET_KEY = "django-insecure-5z!2ttvz%r@dux7zf^73_t6o3pp@wzo^vjg@c5*k*j=)yt%x06"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-
 DEBUG = False
+
 
 #CSRF SETTINGS
 CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000','https://p01--aistocks--2j9gglbgkrfp.code.run']
@@ -80,7 +81,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'aistocks.wsgi.application'
-# ASGI_APPLICATION = 'aistocks.asgi.application'
+
 
 
 # Database
@@ -91,6 +92,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'railway',
         'USER': 'postgres',
+        # 'PASSWORD': "JwfFqxNM13G7DO4bTOCl",
         'PASSWORD': os.environ['PASSWORD'],
         'HOST': 'containers-us-west-23.railway.app',
         'PORT': '7859',
@@ -140,7 +142,6 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 STATIC_URL = 'static/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -149,6 +150,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 CELERY_BROKER_URL = os.environ['CELERY_BROKER_URL']
+# CELERY_BROKER_URL = "redis://default:CvLwghv7E8u28W6CrOd8@containers-us-west-109.railway.app:7336"
 CELERY_ACCEPT_CONTENT   = ['application/json']
 CELERY_RESULT_SERIALIZER  = 'json'
 CELERY_TASK_SELERLIZER  = 'json'
@@ -167,6 +169,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_HOST_USER ='net.aistocks@gmail.com'
+# EMAIL_HOST_PASSWORD = "lrehhzmauahnsjud"
 EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
 DEFAULT_FROM_EMAIL = 'AIStocks.in'
 
