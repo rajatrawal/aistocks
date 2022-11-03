@@ -25,7 +25,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = True
+DEBUG = False
 
 #CSRF SETTINGS
 CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000','https://p01--aistocks--2j9gglbgkrfp.code.run']
