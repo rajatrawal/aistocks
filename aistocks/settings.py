@@ -29,9 +29,9 @@ DEBUG = False
 
 
 #CSRF SETTINGS
-CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000','https://p01--aistocks--2j9gglbgkrfp.code.run']
+CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000','https://p01--aistocks--2j9gglbgkrfp.code.run','https://www.aistocx.com']
 
-ALLOWED_HOSTS = ['127.0.0.1','p01--aistocks--2j9gglbgkrfp.code.run']
+ALLOWED_HOSTS = ['127.0.0.1','p01--aistocks--2j9gglbgkrfp.code.run','www.aistocx.com']
 
 # Application definition
 

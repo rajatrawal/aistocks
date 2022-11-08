@@ -46,7 +46,7 @@ def save_current_signal(current_signal,current_signal_position,close,high_or_low
     current_signal.save()
 
 def create_signal(symbol):
-    data = yf.download(symbol.symbol, period='1d',interval = "1m")
+    data = yf.download(symbol.symbol, period='8d',interval = f'{symbol.timeframe}m')
     data['sma_30'] = ta.sma(data['Close'],30)
     data['sma_100'] = ta.sma(data['Close'],100)
     data = data[['sma_30','sma_100','Close','High','Low']]

@@ -469,6 +469,9 @@
         padding: 0;
         
     }
+    .navbar .container-fluid {
+        justify-content: flex-start;
+    }
     .signal_page_svg_div{
         padding-bottom: 1rem;
     }
