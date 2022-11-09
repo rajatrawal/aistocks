@@ -12,5 +12,6 @@ urlpatterns = [
     path('table/<str:type>',views.get_table,name='get_table'),
     path('chart/<str:symbol>',views.chart,name='chart'),
     path('signals',views.get_signals,name='signals'),
+    path('aboutUs',views.about_us,name='about_us'),
     
 ]

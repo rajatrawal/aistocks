@@ -2,10 +2,10 @@
 {% block title %}
 {% load my_tags %}
 {% load static %}
-AIStock.com
+AIStocx.com
 {% endblock title %}
 {% block dece %}
-Get prediction tomorrow price of stocks for free.
+Get  tomorrow price prediction of stocks,index , forex  for free.
 {% endblock dece %}
 {% block body %}
 <marquee class='marquee_tag'>
@@ -39,7 +39,7 @@ Get prediction tomorrow price of stocks for free.
     <div class="row mt-4  ms-2 me-2">
         {% for j,i in index.items %}
 
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class=" index_div p-1">
                 <div class="card">
                     <div class="card-body">
@@ -59,7 +59,7 @@ Get prediction tomorrow price of stocks for free.
                 </div>
             </div>
         </div>
-        {% if forloop.counter == 4 %}
+        {% if forloop.counter == 3 %}
     </div>
     <div class="row mt-1  ms-2 me-2">
 
@@ -77,7 +77,7 @@ Get prediction tomorrow price of stocks for free.
             {{name|title}}
         </div>
         <div>
-            <a href="table/{{name}}" class='me-2'>See More</a>
+            <a href="table/{{name}}" class='me-2'>See All</a>
         </div>
     </div>
     <table class="table table-striped">

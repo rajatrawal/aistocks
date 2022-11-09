@@ -21,8 +21,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-SECRET_KEY = os.environ['SECRET_KEY']
-# SECRET_KEY = "django-insecure-5z!2ttvz%r@dux7zf^73_t6o3pp@wzo^vjg@c5*k*j=)yt%x06"
+# SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = "django-insecure-5z!2ttvz%r@dux7zf^73_t6o3pp@wzo^vjg@c5*k*j=)yt%x06"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -92,8 +92,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'railway',
         'USER': 'postgres',
-        # 'PASSWORD': "JwfFqxNM13G7DO4bTOCl",
-        'PASSWORD': os.environ['PASSWORD'],
+        'PASSWORD': "JwfFqxNM13G7DO4bTOCl",
+        # 'PASSWORD': os.environ['PASSWORD'],
         'HOST': 'containers-us-west-23.railway.app',
         'PORT': '7859',
     }
@@ -149,8 +149,8 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-CELERY_BROKER_URL = os.environ['CELERY_BROKER_URL']
-# CELERY_BROKER_URL = "redis://default:CvLwghv7E8u28W6CrOd8@containers-us-west-109.railway.app:7336"
+# CELERY_BROKER_URL = os.environ['CELERY_BROKER_URL']
+CELERY_BROKER_URL = "redis://default:CvLwghv7E8u28W6CrOd8@containers-us-west-109.railway.app:7336"
 CELERY_ACCEPT_CONTENT   = ['application/json']
 CELERY_RESULT_SERIALIZER  = 'json'
 CELERY_TASK_SELERLIZER  = 'json'
@@ -169,8 +169,8 @@ EMAIL_USE_TLS = True
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_HOST_USER ='net.aistocks@gmail.com'
-# EMAIL_HOST_PASSWORD = "lrehhzmauahnsjud"
-EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
-DEFAULT_FROM_EMAIL = 'AIStocks.in'
+EMAIL_HOST_PASSWORD = "lrehhzmauahnsjud"
+# EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
+DEFAULT_FROM_EMAIL = 'AIStocx.com'
 
 

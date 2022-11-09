@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from . import stocker
+# from . import stocker
 import json
 #yahoo fin module
 from yahoo_fin.stock_info import get_quote_data,get_company_info,get_financials,get_stats,get_quote_table,get_day_most_active,get_day_losers,get_day_gainers,get_undervalued_large_caps , get_currencies 
@@ -45,7 +45,7 @@ def index(request):
         marquee_data = []
         
         
-    index_symbol = {'sensex':'^BSESN','nifty':'^NSEI','bank nifty':'^NSEBANK','nifty it':'^CNXIT','nasdaq':'^NDX','ftse':'^FTSE','dax':'^GDAXI','Nikkei 225':'^N225'}
+    index_symbol = {'sensex':'^BSESN','nifty':'^NSEI','bank nifty':'^NSEBANK','nifty it':'^CNXIT','nasdaq':'^NDX','dax':'^GDAXI'}
     thread_list =[]
     que = queue.Queue()
     index_data={}
@@ -299,4 +299,7 @@ def get_table(request,type):
     except:
         context={}
     return render(request,'home/table.html',context=context)
+
+def about_us(request):
+    return render(request,'home/about.html',{'about_page':True})
     
