@@ -1,6 +1,13 @@
-
+from .sitemaps import StaticViewSitemap
+from django.contrib.sitemaps.views import sitemap
 from django.urls import path
 from .import views
+
+sitemaps = {
+    'static': StaticViewSitemap,
+}
+
+
 urlpatterns = [
 
     path('',views.index,name='index'),
@@ -13,5 +20,8 @@ urlpatterns = [
     path('chart/<str:symbol>',views.chart,name='chart'),
     path('signals',views.get_signals,name='signals'),
     path('aboutUs',views.about_us,name='about_us'),
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
+         name='django.contrib.sitemaps.views.index'),
+ 
     
 ]

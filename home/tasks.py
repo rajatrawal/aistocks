@@ -50,12 +50,14 @@ def create_signal(symbol):
     data['sma_30'] = ta.sma(data['Close'],30)
     data['sma_100'] = ta.sma(data['Close'],100)
     data = data[['sma_30','sma_100','Close','High','Low']]
+    print(data)
+    
     position = symbol.current_position
     all_signal_objects = Signal.objects.filter(symbol=symbol)
     current_signal_closing = False
     sma_30=data['sma_30'][-1]
     sma_100=data['sma_100'][-1]
-
+    print(sma_30,sma_100)
     high=0
     low=0
     close = round(data['Close'][-1],4)
@@ -66,6 +68,8 @@ def create_signal(symbol):
         current_signal = all_signal_objects.last()
         high =current_signal.high 
         low= current_signal.low
+    
+    
     if high_price >high:
         high=high_price
  
@@ -76,12 +80,12 @@ def create_signal(symbol):
         if position=='sell':
             position = 'buy'
             save_signal(symbol,position,close,'green')
-        low_or_high = high
+        high_or_low = high
     elif (sma_30 < sma_100):
         if position=='buy' :
             position='sell'
             save_signal(symbol,position,close,'red')
-        low_or_high = low
+        high_or_low = low
     
     if len(all_signal_objects) > 0: 
         current_signal.low = low
