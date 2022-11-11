@@ -2,7 +2,6 @@
 from django.db import models
 from django.dispatch import receiver
 from django.db.models.signals import pre_save
-from django.urls import reverse
 from . import utils
 
 # Create your models here.
@@ -50,7 +49,7 @@ class Ticker(models.Model):
     def __str__(self):
         return self.name
     def get_absolute_url(self):
-        return reverse('get_stock',args=[self.symbol,])
+        return f'/getStock/{self.symbol}'
     
 
 @receiver(pre_save,sender=Symbol)
