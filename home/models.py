@@ -2,6 +2,7 @@
 from django.db import models
 from django.dispatch import receiver
 from django.db.models.signals import pre_save
+from django.urls import reverse
 from . import utils
 
 # Create your models here.
@@ -41,6 +42,15 @@ class Signal(models.Model):
     color = models.CharField(choices=(('green','green'),('red','red')),max_length=10,default='green')
     
     
+class Ticker(models.Model):
+    name = models.CharField(max_length=500)
+    symbol = models.CharField(max_length=500)
+    exchange = models.CharField(max_length=500)
+    
+    def __str__(self):
+        return self.name
+    def get_absolute_url(self):
+        return reverse('get_stock',args=[self.symbol,])
     
 
 @receiver(pre_save,sender=Symbol)

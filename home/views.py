@@ -7,7 +7,7 @@ from yahoo_fin.stock_info import get_quote_data,get_company_info,get_financials,
 from threading import Thread
 import queue
 from  . utils  import *
-from . models import Signal
+from . models import Signal,Ticker
 
 
 
