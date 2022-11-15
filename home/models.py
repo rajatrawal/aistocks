@@ -40,6 +40,9 @@ class Signal(models.Model):
     status = models.CharField(choices=status_choices,max_length=10,default='active')
     color = models.CharField(choices=(('green','green'),('red','red')),max_length=10,default='green')
     
+    class Meta:
+        ordering = ["time"]
+    
     
 class Ticker(models.Model):
     name = models.CharField(max_length=500)

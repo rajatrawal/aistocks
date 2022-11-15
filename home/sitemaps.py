@@ -14,7 +14,4 @@ class StaticViewSitemap(sitemaps.Sitemap):
     
     
 
-import json
-with open(r'E:\rajat\Django\stock ticker\aistocks_website\static\home\stocks.json') as f:
-   data = json.load(f)
-   
+
