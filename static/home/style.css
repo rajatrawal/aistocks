@@ -30,6 +30,9 @@
     background-color: rgb(240, 240, 240);
 }
 
+.placeholder-top{
+    height: 30rem;
+}
 .symbol_name_a {
     color: var(--primary);
     text-decoration: none;
@@ -296,7 +299,6 @@
 }
 
 /* index page  */
-
 
 .align_right_div {
     display: flex;

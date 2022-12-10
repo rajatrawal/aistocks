@@ -24,5 +24,8 @@ urlpatterns = [
     path('aboutUs',views.about_us,name='about_us'),
     path('sitemap.xml', sitemap,{'sitemaps': {'ticker': GenericSitemap(info_dict, priority=0.5,changefreq='never')}},
         name='django.contrib.sitemaps.views.sitemap'),
+    path('getMarqueeTagAjaxData',views.get_marquee_tag_ajax_data,name='get_marquee_tag_ajax_data'),
+    path('getIndexAjaxData',views.get_index_ajax_data,name='get_index_ajax_data'),
+    path('getSecondaryIndexAjaxData',views.get_secondary_index_ajax_data,name='get_secondary_index_ajax_data'),
     
 ]

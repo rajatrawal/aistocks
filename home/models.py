@@ -1,4 +1,3 @@
-
 from django.db import models
 from django.dispatch import receiver
 from django.db.models.signals import pre_save
@@ -42,7 +41,10 @@ class Signal(models.Model):
     
     class Meta:
         ordering = ["time"]
-    
+    def __str__(self):
+        return f'{self.symbol} {self.position} {self.price} {self.status}'
+
+
     
 class Ticker(models.Model):
     name = models.CharField(max_length=500)

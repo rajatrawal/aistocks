@@ -34,14 +34,14 @@ def save_current_signal(current_signal,current_signal_position,close,high_or_low
     else:
         current_signal_closing = False
     if current_signal_closing:
-        if current_signal.max_profit > 15 :
+        if current_signal.max_profit >= 15 :
             current_signal.status = 'failed'
         else:
             current_signal.status = 'successful'
         current_signal_closing = False
     else:                
-            current_signal.max_profit = calculate_pips(current_signal.price,high_or_low,current_signal_position) 
-            current_signal.current_profit=calculate_pips(current_signal.price,close,current_signal_position)
+        current_signal.max_profit = calculate_pips(current_signal.price,high_or_low,current_signal_position) 
+        current_signal.current_profit=calculate_pips(current_signal.price,close,current_signal_position)
 
     current_signal.save()
 

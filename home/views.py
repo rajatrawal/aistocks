@@ -22,79 +22,7 @@ def predict_tomorrow(request):
 
 
 def index(request):
-    try:
-        most_active = get_day_most_active()
-        most_active =most_active[['Symbol',  'Price (Intraday)', 'Change', '% Change', 'Volume']]
-        most_active.dropna()
-   
-        
-        for i in ['Price (Intraday)','Change']:
-
-            
-            most_active[i]=round(most_active[i],2)
-           
-            
-            most_active_dict =most_active.T.to_dict()
-            marquee_data=[]
-
-            
-            for key,value in most_active_dict.items():
-                value['color'] = calculate_color(value['% Change'])
-                marquee_data.append(value)
-    except:
-        marquee_data = []
-        
-        
-    index_symbol = {'sensex':'^BSESN','nifty':'^NSEI','bank nifty':'^NSEBANK','nifty it':'^CNXIT','nasdaq':'^NDX','dax':'^GDAXI'}
-    thread_list =[]
-    que = queue.Queue()
-    index_data={}
-    for key,value in index_symbol.items():
-        thread = Thread(target=lambda q,arg1:q.put({key:get_index_data_for_thread(arg1)}),args=(que,value))
-        thread_list.append(thread)
-        thread_list[-1].start()
-    for thread in thread_list:
-        thread.join()
-    while not que.empty():   
-        result = que.get()
-        index_data.update(result)
-    try:
-        
-        day_gainers = get_day_gainers().T.to_dict()
-    except:
-        
-        day_gainers={}
-    try:
-        
-        day_losers = get_day_losers().T.to_dict()
-    except:
-        day_losers={}
-    try:
-        
-        under_valued_stocks = get_undervalued_large_caps().T.to_dict()
-    except:
-        under_valued_stocks={}
-    try:
-        
-        currencies = get_currencies()
-        currencies['color']= currencies.Change.apply(lambda x : calculate_color(x))
-        currencies.rename(columns={'Last Price':'Price (Intraday)'},inplace=True)
-        currencies = currencies.T.to_dict()
-    except:
-        currencies={}
-
-    def get_calculate_color(params):
-        for key,value in params.items():
-            value['color']= calculate_color(value['Change'])
-        return params
-    day_gainers = get_calculate_color(day_gainers)
-    day_losers = get_calculate_color(day_losers)
-    under_valued_stocks = get_calculate_color(under_valued_stocks)
-   
-    
-    day_stocks = {'top gainers':day_gainers,'top losers':day_losers,'undervalued stocks':under_valued_stocks,'currencies':currencies}
-    context = {'index':  index_data,'marquee_data':marquee_data,'room_name':'track','day_stocks':day_stocks,'index_page':True}
-    return render(request, 'home/index.html', context)
+    return render(request, 'home/index.html',{'index_page':True})
 
 
 
@@ -302,4 +230,77 @@ def get_table(request,type):
 
 def about_us(request):
     return render(request,'home/about.html',{'about_page':True})
-    
+
+#function to get marquee data and Todays Highlight data through ajax
+def get_marquee_tag_ajax_data(request):
+    try:
+        most_active = get_day_most_active()
+        most_active =most_active[['Symbol',  'Price (Intraday)', 'Change', '% Change', 'Volume']]
+        most_active.dropna()
+        for i in ['Price (Intraday)','Change']:
+            
+            most_active[i]=round(most_active[i],2)
+           
+            
+            most_active_dict =most_active.T.to_dict()
+            marquee_data=[]
+
+            
+            for key,value in most_active_dict.items():
+                value['color'] = calculate_color(value['% Change'])
+                marquee_data.append(value)
+    except:
+        marquee_data = []
+    marquee_data = json.dumps(marquee_data)
+    return HttpResponse(marquee_data)
+
+def get_index_ajax_data(request):
+    index_symbol = {'sensex':'^BSESN','nifty':'^NSEI','bank nifty':'^NSEBANK','nifty it':'^CNXIT','nasdaq':'^NDX','dax':'^GDAXI'}
+    try :
+        thread_list =[]
+        que = queue.Queue()
+        index_data={}
+        for key,value in index_symbol.items():
+            thread = Thread(target=lambda q,arg1:q.put({key:get_index_data_for_thread(arg1)}),args=(que,value))
+            thread_list.append(thread)
+            thread_list[-1].start()
+        for thread in thread_list:
+            thread.join()
+        while not que.empty():   
+            result = que.get()
+            index_data.update(result)    
+    except:
+        index_data = []
+  
+    index_data = json.dumps(index_data)
+    return HttpResponse(index_data)
+
+def get_secondary_index_ajax_data(request):
+    def get_calculate_color(params):
+        for key,value in params.items():
+            value['color']= calculate_color(value['Change'])
+        return params
+    func_list = [get_day_gainers,get_day_losers,get_undervalued_large_caps]
+    data_list =[]
+    for i in func_list:
+        try:    
+            data = i()
+            data = data[['Symbol','Price (Intraday)','Change','% Change']]
+            data = data.dropna().T.to_dict()
+            data = get_calculate_color(data)
+        except:
+            data =[]
+        data_list.append(data)    
+
+    try:
+        currencies = get_currencies()[['Symbol','Last Price','Change','% Change']].dropna()
+        currencies['color']= currencies.Change.apply(lambda x : calculate_color(x))
+        currencies.rename(columns={'Last Price':'Price (Intraday)'},inplace=True)
+        currencies = currencies.T.to_dict()
+    except:
+        currencies={}
+
+    day_stocks = {'top gainers':data_list[0],'top losers':data_list[1],'undervalued stocks':data_list[2],'currencies':currencies}
+
+    day_stocks = json.dumps(day_stocks)
+    return HttpResponse(day_stocks)

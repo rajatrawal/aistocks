@@ -5,79 +5,126 @@
 AIStocx.com
 {% endblock title %}
 {% block dece %}
-Get  tomorrow price prediction of stocks,index , forex  for free.
+Get tomorrow price prediction of stocks,index , forex for free.
 {% endblock dece %}
 {% block body %}
-<marquee class='marquee_tag'>
-    {% for stock in marquee_data %}
+<marquee id='marquee_tag' class="marquee_tag  ">
+    <div class="placeholder-glow">
+        <span class=" placeholder"></span>
+    </div>
+</marquee>
+<div class="mb-4">
+    <div class="mt-4 mb-4 h3 ms-3 fw-bold">Todays Highlight</div>
+    <div class="row mt-4  ms-2 me-2 highlight_data_div placeholder-glow ">
+        <span class=" placeholder"></span>
 
-    <span class='me-4  '>
-        <span class='fw-bold me-1 marquee_tag_symbol'><a href='/getStock/{{stock|get:"Symbol"}}' class='symbol_name_a'>{{stock|get:"Symbol"}}</a> </span>
-        <span class='fw-bold  me-1'>{{stock|get:"Price (Intraday)"}}</span>
-        <span class=' {{stock|get:"color"}} '>{{stock|get:"% Change"}}%</span>
+    </div>
+
+</div>
+
+<div class="mb-4 table_parent_div ">
+</div>
+{% endblock body %}
+{% block script %}
+<script src="{% static 'home/ajax.js' %}"></script>
+<script>
+
+    function loadMarqueeTagAjaxData(data) {
+        let marqueeTagAjaxData = JSON.parse(data);
+        let marqueeTagStrData = ``;
+        let marqueeTag = document.getElementById('marquee_tag')
+        for (let stock of marqueeTagAjaxData) {
+            marqueeTagStrData += `
+
+            <span class='me-4 '>
+        <span class='fw-bold me-1 marquee_tag_symbol'><a href='/getStock/${stock['Symbol']}'
+                class='symbol_name_a'>${stock['Symbol']}</a> </span>
+        <span class='fw-bold  me-1'>${stock['Price (Intraday)']}</span>
+        <span class='${stock['color']}'>${stock['% Change']}%</span>
         <span class=' symbol_sign'>
-            {% if stock|get:"color" == 'green' %}
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green"
+            `;
+            if (stock['color'] === 'green') {
+                marqueeTagStrData += `
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green"
                 class="bi bi-caret-up-square-fill" viewBox="0 0 16 16">
                 <path
                     d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4 9h8a.5.5 0 0 0 .374-.832l-4-4.5a.5.5 0 0 0-.748 0l-4 4.5A.5.5 0 0 0 4 11z" />
             </svg>
-            {% else %}
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red"
-                class="bi bi-caret-down-square-fill" viewBox="0 0 16 16">
-                <path
-                    d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4 4a.5.5 0 0 0-.374.832l4 4.5a.5.5 0 0 0 .748 0l4-4.5A.5.5 0 0 0 12 6H4z" />
+            </span>
+            </span>
+                `;
+            }
+            else {
+                marqueeTagStrData += `
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red"
+        class="bi bi-caret-down-square-fill" viewBox="0 0 16 16">
+        <path
+            d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4 4a.5.5 0 0 0-.374.832l4 4.5a.5.5 0 0 0 .748 0l4-4.5A.5.5 0 0 0 12 6H4z" />
             </svg>
-            {% endif %}
         </span>
-    </span>
+        </span>
 
-    {% endfor %}
-</marquee>
-<div class="mb-4">
-    <div class="mt-4 mb-4 h3 ms-3 fw-bold">Todays Highlight</div>
-    <div class="row mt-4  ms-2 me-2">
-        {% for j,i in index.items %}
+                `;
+            }
+        }
+        marqueeTag.innerHTML = marqueeTagStrData;
 
-        <div class="col-md-4">
+    }
+    function loadIndexAjaxData(data) {
+        highlightData = JSON.parse(data);
+        let counter = 1;
+        let highlightDivTagStrData = ``;
+        let highlightDataDiv = document.querySelector('.highlight_data_div')
+        for (let key in highlightData) {
+
+            highlightDivTagStrData += `
+            <div class="col-md-4">
             <div class=" index_div p-1">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title cardTitlePrice fw-bold"><a href="/getStock/{{i.symbol}}" class="symbol_name_a">{{i.shortName}}</a></h5>
-                        <div class="h3  {{i.color}} fw-bold mt-2 mb-2">{{i.regularMarketPrice}} <span
-                                class="cardPriceChangeSpan h6 ms-1 fw-bold {{i.color}}">{{i.regularMarketChange}}</span>
+                        <h5 class="card-title cardTitlePrice fw-bold"><a href="/getStock/${highlightData[key]['symbol']}"
+                                class="symbol_name_a">${highlightData[key]['shortName']}</a></h5>
+                        <div class="h3  ${highlightData[key]['color']} fw-bold mt-2 mb-2">
+                            ${highlightData[key]['regularMarketPrice']} <span
+                                class="cardPriceChangeSpan h6 ms-1 fw-bold ${highlightData[key]['color']}">
+                                ${highlightData[key]['regularMarketChange']} </span>
                             <span
-                                class="cardPricePercentSpan fw-bold h6 ms-1 {{i.color}}">{{i.regularMarketChangePercent}}%</span>
+                                class="cardPricePercentSpan fw-bold h6 ms-1 ${highlightData[key]['color']}">${highlightData[key]['regularMarketChangePercent']}%</span>
                         </div>
                         <div>
                             <div class="fw-bold"><span class="text-muted ">Todays High:
-                                </span><span>{{i.regularMarketDayHigh}}</span></div>
+                                </span><span>${highlightData[key]['regularMarketDayHigh']}</span></div>
                             <div class="fw-bold"><span class="text-muted ">Todays Low:
-                                </span><span>{{i.regularMarketDayLow}}</span></div>
+                                </span><span>${highlightData[key]['regularMarketDayLow']}</span></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        {% if forloop.counter == 3 %}
-    </div>
-    <div class="row mt-1  ms-2 me-2">
-
-
-        {% endif %}
-
-        {% endfor %}
-    </div>
-
-</div>
-<div class="mb-4">
-    {% for name,stocks in day_stocks.items %}
+            `;
+            if (counter === 3) {
+                highlightDivTagStrData += `
+                </div>
+        <div class="row mt-1  ms-2 me-2">
+                `;
+            }
+        }
+        highlightDataDiv.innerHTML = highlightDivTagStrData;
+    }
+    function getSecondaryIndexAjaxData(data) {
+        let tableData = JSON.parse(data);
+        let tableParentDiv = document.querySelector(".table_parent_div");
+        let tableParentDivStr = ``;
+        let tableBodyDiv;
+        for (let table in tableData) {
+            tableParentDivStr = tableParentDiv.innerHTML;
+            tableParentDivStr += `
     <div class="mt-4 mb-4  ms-3 d-flex justify-content-between">
-        <div class='h3 fw-bold'>
-            {{name|title}}
+        <div class='h3 fw-bold text-capitalize'>
+            ${table}
         </div>
         <div>
-            <a href="table/{{name}}" class='me-2'>See All</a>
+            <a href="table/${table}" class='me-2'>See All</a>
         </div>
     </div>
     <table class="table table-striped">
@@ -89,25 +136,44 @@ Get  tomorrow price prediction of stocks,index , forex  for free.
                 <th scope="col">Change %</th>
             </tr>
         </thead>
-        <tbody>
-            {% for value,stock in stocks.items %}
-            {% if forloop.counter < 11 %} <tr>
-                <td><a href='/getStock/{{stock|get:"Symbol"}}' class='primary_link'>{{stock|get:"Symbol"}}</a> </td>
-                <td>{{stock|get:"Price (Intraday)"}}</td>
-                <td class="{{stock|get:'color'}}">{{stock|get:"Change"}}</td>
-                <td class="{{stock|get:'color'}}">{{stock|get:"% Change"}} %</td>
-                </tr>
-                {% endif %}
-                {% endfor %}
+        <tbody id = 'tableData_${table}'>
         </tbody>
     </table>
-    {% endfor %}
-</div>
-{% endblock body %}
-{% block script %}
-<script src="{% static 'home/ajax.js' %}"></script>
+            `;
+        tableParentDiv.innerHTML = tableParentDivStr;
+        tableParentDivStr = ``;
+        tableBodyDiv = document.getElementById(`tableData_${table}`);
+        tableBodyDivStr = ``;
+        counter = 0;
+        for(stock in tableData[table]){
+            
+            if(counter < 11){
+                let value = tableData[table][stock];
+                tableParentDivStr += `
+                <tr>
+                <td><a href='/getStock/${value['Symbol']}' class='primary_link'>${value['Symbol']}</a> </td>
+                    <td>${value['Price (Intraday)']}</td>
+                    <td class="${value['color']}">${value['Change']}</td>
+                    <td class="${value['color']}">${value['% Change']} %</td>
+                    </tr>
+                `;
+                counter++;
+            }
+            else{
+                break;
+            }
+        }
+        tableBodyDiv.innerHTML = tableParentDivStr;
+        counter = 0;
+        tableBodyDivStr = ``;
+      
+        }
+    }
+    normalAjaxRequest('getIndexAjaxData', loadIndexAjaxData);
+    normalAjaxRequest('getMarqueeTagAjaxData', loadMarqueeTagAjaxData);
+    normalAjaxRequest('getSecondaryIndexAjaxData',getSecondaryIndexAjaxData);
 
-<script>
+
 
 </script>
 {% endblock script %}

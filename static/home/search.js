@@ -1,5 +1,5 @@
-
-fetch("/static/home/stocks.json")
+window.onload = ()=>{
+    fetch("/static/home/stocks.json")
     .then(response => {
         return response.json();
     })
@@ -61,5 +61,8 @@ searchInput.addEventListener('input', (e) => {
 
 
 })
+}
+
+
 
 
