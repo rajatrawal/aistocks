@@ -15,6 +15,9 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+import dj_database_url
+
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -25,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-5z!2ttvz%r@dux7zf^73_t6o3pp@wzo^vjg@c5*k*j=)yt%x06"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 
 #CSRF SETTINGS
@@ -34,6 +37,9 @@ CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000','https://p01--aistocks--2j9gglbg
 ALLOWED_HOSTS = ['127.0.0.1','p01--aistocks--2j9gglbgkrfp.code.run','www.aistocx.com']
 
 # Application definition
+
+# setting site id for sitemap
+SITE_ID=1
 
 INSTALLED_APPS = [
     'jazzmin',
@@ -49,11 +55,8 @@ INSTALLED_APPS = [
     'django_celery_results',
     'django_celery_beat',
     'account',
-
-    
 ]
 
-SITE_ID=1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -87,27 +90,23 @@ TEMPLATES = [
 WSGI_APPLICATION = 'aistocks.wsgi.application'
 
 
-
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+#postgre sql database connections
+DATABASES = {
+   'default': dj_database_url.parse('postgresql://postgres:GFDQiEO4ViD8eU8MuE4Y@containers-us-west-23.railway.app:7859/railway')
+}
+
+
+#django default database
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': "UDtrzU7Klmq3gaSueUW2",
-        # 'PASSWORD': os.environ['PASSWORD'],
-        'HOST': 'containers-us-west-23.railway.app',
-        'PORT': '7859',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'mydatabase',
     }
 }
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': 'mydatabase',
-#     }
-# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -139,22 +138,25 @@ USE_I18N = True
 
 USE_TZ = True
 
+# must be  decommented on localhost
 # STATICFILES_DIRS = [BASE_DIR/'static', ]
 
+# must be commented when using production
 STATIC_ROOT = BASE_DIR / "static"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+#celery settings 
 
-# CELERY_BROKER_URL = os.environ['CELERY_BROKER_URL']
-CELERY_BROKER_URL = "redis://default:CvLwghv7E8u28W6CrOd8@containers-us-west-109.railway.app:7336"
+CELERY_BROKER_URL = "redis://default:0NWcDdEo2UmFAJPVe6Sc@containers-us-west-109.railway.app:7336"
 CELERY_ACCEPT_CONTENT   = ['application/json']
 CELERY_RESULT_SERIALIZER  = 'json'
 CELERY_TASK_SELERLIZER  = 'json'

@@ -13,19 +13,19 @@ info_dict = {
 urlpatterns = [
 
     path('',views.index,name='index'),
-    path('predictTomorrow',views.predict_tomorrow,name='predit_tomorrow'),
-    path('companyInfo',views.company_info,name='company_info'),
-    path('getFinancialData',views.get_financial_data,name='get_financial_data'),
-    path('getSignals',views.get_signals,name='get_signals'),
-    path('getStock/<str:symbol_name>',views.get_stock,name='get_stock'),
+    path('predictAjaxTomorrow',views.predict_ajax_tomorrow,name='predit_ajax_tomorrow'),
+    path('companyAjaxInfo',views.company_ajax_info,name='company_ajax_info'),
+    path('getFinancialAjaxData',views.get_financial_ajax_data,name='get_financial_ajax_data'),
+    path('getTicker/<str:symbol_name>',views.get_ticker,name='get_ticker'),
     path('table/<str:type>',views.get_table,name='get_table'),
     path('chart/<str:symbol>',views.chart,name='chart'),
     path('signals',views.get_signals,name='signals'),
     path('aboutUs',views.about_us,name='about_us'),
-    path('sitemap.xml', sitemap,{'sitemaps': {'ticker': GenericSitemap(info_dict, priority=0.5,changefreq='never')}},
-        name='django.contrib.sitemaps.views.sitemap'),
     path('getMarqueeTagAjaxData',views.get_marquee_tag_ajax_data,name='get_marquee_tag_ajax_data'),
     path('getIndexAjaxData',views.get_index_ajax_data,name='get_index_ajax_data'),
     path('getSecondaryIndexAjaxData',views.get_secondary_index_ajax_data,name='get_secondary_index_ajax_data'),
+    
+    path('sitemap.xml', sitemap,{'sitemaps': {'ticker': GenericSitemap(info_dict, priority=0.5,changefreq='never')}},
+        name='django.contrib.sitemaps.views.sitemap'),
     
 ]

@@ -1,18 +1,21 @@
 import json
-from urllib import request
+#celery beat models
 from django_celery_beat.models import PeriodicTask,CrontabSchedule
+#to scrape yahoo data
 from yahoo_fin.stock_info import get_quote_data
 
+#Create Celery Beat Scheduler For Signals
 def create_signal_scheduler(instance):
-    print('signal posted')
     symbol_name = instance.symbol
     timeframe = instance.timeframe
     name = f'signalname-{symbol_name}-{timeframe}'
     schedule,created =CrontabSchedule.objects.get_or_create(minute='*/'+str(timeframe))
     PeriodicTask.objects.create(crontab=schedule,name=name,task='home.tasks.create_signal_task',args=json.dumps([symbol_name]))
-    print('signal created')
+
     
 
+
+# utility functions below
 
 def split_year(date):
     year_list = []
@@ -95,7 +98,7 @@ def calculate_risk(x):
             return {'color': 'red', 'risk': 'High'}
     except:
         return False
-# Create your views here.
+
 
 
 def remove_space(dictionery):

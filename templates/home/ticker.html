@@ -511,7 +511,7 @@ Get  tomorrow price prediction of {{more_data.shortName}} for free.
     </tbody>
   </table>
 </div>
-{{room_name|json_script:"room-name"}}
+
 {% endblock body %}
 
 {% block script %}
@@ -527,52 +527,14 @@ Get  tomorrow price prediction of {{more_data.shortName}} for free.
   const tradingViewExchangeName = '{{more_data.tradingViewExchangeName}}';
   const  tradingViewSymbolName= '{{more_data.tradingViewSymbolName}}';
   let stockPrice = '{{ more_data.regularMarketPrice }}';
-
-
-
-
-  ajaxRequest("/predictTomorrow", symbolNameNs, showTomorrowPredicton);
-
-  ajaxRequest("/companyInfo", symbolNameNs, showCompanyCategory);
+  ajaxRequest("/predictAjaxTomorrow", symbolNameNs, showTomorrowPredicton);
+  ajaxRequest("/companyAjaxInfo", symbolNameNs, showCompanyCategory);
   
-  
-
-
-  function showCompanyCategory(data) {
-    data = JSON.parse(data);
-
-    if (data != 'false') {
-      let topInfoRight = document.getElementsByClassName('top_info_right')[0];
-      if (data['sector'] != undefined){
-
-        topInfoRight.innerText = data['sector'];
-      }
-      str1 = '';
-
-      for (j in data) {
-        key = titleWords(titleWords(j));
-        str1 += `<tr><th scope="row">${key}</th><td>${data[j]}</td></tr>`;
-      }
-      companyInfoTableBody.innerHTML = str1;
-    };
-  };
-  function showDividendTable(data){
-    data = JSON.parse(data);
-    str1='';
-    if(data != 'false'){
-      for (j in data) {
-        key = titleWords(titleWords(j));
-        str1 += `<tr><th scope="row">${key}</th><td>${data[j]}</td></tr>`;
-      };
-      dividendTableBody.innerHTML = str1;
-    }
-  };
-
-
 </script>
 
-<script src="{% static 'home/chart.js' %}"></script>
-<script src="{% static 'home/tradingChart.js' %}"></script>
+
+<script src="{% static 'home/scripts/chart.js' %}"></script>
+<script src="{% static 'home/scripts/tradingChart.js' %}"></script>
 <script>
   // const roomName = JSON.parse(document.getElementById('room-name').textContent);
   // let symbolNamesOnPage = document.getElementsByClassName('stock_symbol_name');

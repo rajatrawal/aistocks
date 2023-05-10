@@ -163,4 +163,4 @@ function createChart(chartId, data, labels, label_name) {
     myChart = new Chart(ctx, config);
 }
 
-ajaxRequest("/getFinancialData", symbolNameNs, loadAllChart);
+ajaxRequest("/getFinancialAjaxData", symbolNameNs, loadAllChart);

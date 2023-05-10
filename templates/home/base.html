@@ -152,33 +152,7 @@
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
 
-    <script>
-   
-        var typed4 = new Typed('#searchInput', {
-            strings: ['Search As "RELIANCE" ', ' Search As "AAPL" ', ' Search As "AMD" ', ' Search As "NVDA" ', ' Search As "HDFC" ', ' Search As "SNAP" ', ' Search As "META" ', ' Search As "GOOG" ', ' Search As "ASIANPAINT" ', ' Search As "AMZN" ', 'Search For Your Favarite Stock'],
-            typeSpeed: 100,
-            backSpeed: 50,
-            attr: 'placeholder',
-            bindInputFocusEvents: true,
-            loop: true
-        });
-        function addClickEvent(eventClassName,targetClassName,utilityClassName){
-            $(`.${eventClassName}`).click(()=>{
-            account_box = document.querySelector(`.${targetClassName}`);
-            if(account_box.classList.contains(utilityClassName)){
-                account_box.classList.remove(utilityClassName);
-            }
-            else{
-                account_box.classList.add(utilityClassName);
-
-            }
-        })
-        }
-        // addClickEvent('thumb_name','account_box','click_account');
-        addClickEvent('menu_span','navbar-collapse','navbar-collapse_transition');
- 
-    </script>
-    <script src="{% static 'home/search.js' %}"></script>
+    <script src="{% static 'home/base.js' %}"></script>
 
     {% block script %}
 

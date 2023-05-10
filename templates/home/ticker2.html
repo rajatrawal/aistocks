@@ -106,7 +106,6 @@ Get  tomorrow price prediction of {{more_data.shortName}} for free.
 {% block script %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-<script src="{% static 'home/ajax.js' %}"></script>
 
 <script>
   const stockName = '{{more_data.shortName}}';
@@ -116,23 +115,12 @@ Get  tomorrow price prediction of {{more_data.shortName}} for free.
   const  tradingViewSymbolName= '{{more_data.tradingViewSymbolName}}';
   let stockPrice = '{{ more_data.regularMarketPrice }}';
   const stockSymbol = '{{more_data.currency}}';
-
-
-
-
-
+  
   ajaxRequest("/predictTomorrow", symbolNameNs, showTomorrowPredicton);
-
-
-  
-  
-
-
-
-
 </script>
 
-<script src="{% static 'home/tradingChart.js' %}"></script>
+<script src="{% static 'home/scripts/ajax.js' %}"></script>
+<script src="{% static 'home/scripts/tradingChart.js' %}"></script>
 <script>
 
 </script>
